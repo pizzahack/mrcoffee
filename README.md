@@ -1,9 +1,8 @@
 # MR. COFFEE - robotic arm
 
-<p float="left">
-    <img src="./mrcoffee.png" alt="drawing" width="400"/>
-    <img src="./mrcoffee2.png" alt="drawing" width="400"/>
-</p>
+|<img src="article/resources/gifs/mrcoffee2.gif" alt="drawing" width="250"/>|
+<img src="article/resources/gifs/teawmrcoffee.gif" alt="drawing"  width="331"/>
+|<img src="article/resources/gifs/mrcoffee_cad.gif" alt="drawing"  width="300"/>|
 
 ## Table of contents
 
