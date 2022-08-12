@@ -1,8 +1,8 @@
 # MR. COFFEE - robotic arm
 
-|<img src="article/resources/gifs/mrcoffee2.gif" alt="drawing" width="240"/>|
-<img src="article/resources/gifs/teawmrcoffee.gif" alt="drawing"  width="318"/>
-|<img src="article/resources/gifs/mrcoffee_cad.gif" alt="drawing"  width="288"/>|
+|<img src="article/resources/gifs/mrcoffee2.gif" alt="drawing" width="220"/>|
+<img src="article/resources/gifs/teawmrcoffee.gif" alt="drawing"  width="291"/>
+|<img src="article/resources/gifs/mrcoffee_cad.gif" alt="drawing"  width="264"/>|
 
 ## Table of contents
 
