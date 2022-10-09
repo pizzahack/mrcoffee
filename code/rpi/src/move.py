@@ -95,15 +95,15 @@ if __name__ == '__main__':
     make_buzzer_sound()
 
     #sholder
-    s = Process(target=move_joint, args=(sholder, 2450, 2050, False))
+    s = Process(target=move_joint, args=(sholder, 700, 900, False))
     s.start()
 
     #elbow
-    e = Process(target=move_joint, args=(elbow, 2400, 2000, False))
+    e = Process(target=move_joint, args=(elbow, 2400, 2200, False))
     e.start()
 
     #wrist
-    w = Process(target=move_joint, args=(wrist, 2500, 1900, False))
+    w = Process(target=move_joint, args=(wrist, 1050, 1200, False))
     w.start()
 
     #base
@@ -130,15 +130,15 @@ if __name__ == '__main__':
     make_buzzer_sound()
 
     #sholder
-    s = Process(target=move_joint, args=(sholder, 2050, 2450, True))
+    s = Process(target=move_joint, args=(sholder, 900, 700, True))
     s.start()
 
     #elbow
-    e = Process(target=move_joint, args=(elbow, 2000, 2400, True))
+    e = Process(target=move_joint, args=(elbow, 2200, 2400, True))
     e.start()
 
     #wrist
-    w = Process(target=move_joint, args=(wrist, 1900, 2500, True))
+    w = Process(target=move_joint, args=(wrist, 1200, 1050, True))
     w.start()
 
     #base
