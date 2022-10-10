@@ -54,7 +54,6 @@ try:
             break
 
     cap.release()
-    cv2.destroyAllWindows()
 
 except IndexError:
     print("Missing path or step size.")
