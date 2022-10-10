@@ -12,7 +12,7 @@ try:
 
     # skip frames using step size
     try:
-        STEP_SIZE=int(sys.argv[2])
+        STEP_SIZE = int(sys.argv[2])
     except ValueError:
         print("Step size must be int value!")
 
@@ -25,26 +25,26 @@ try:
         os.mkdir('dataset')
 
     os.chdir('dataset')
-    count=0
+    count = 0
 
     while True:
-        
+
         ret, frame = cap.read()
-        
+
         if cap.isOpened() == False:
             print("Check if path is valid.")
 
         if not ret:
             break
-        
-        if count%STEP_SIZE == 0:
+
+        if count % STEP_SIZE == 0:
             cv2.imwrite('image_{0}.png'.format(count), frame)
             print('image_{0}.png'.format(count))
-        count+=1
+        count += 1
 
         if cv2.waitKey(1) == ord('q'):
             break
-            
+
     cap.release()
     cv2.destroyAllWindows()
 
