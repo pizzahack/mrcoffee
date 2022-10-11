@@ -4,56 +4,61 @@ import sys
 import shutil
 
 try:
+    count = 0
+    image_num = 0
 
     try:
-        PATH = sys.argv[1]
+        input = sys.argv[1:]
+    except ValueError:
+        print("Check if path is valid.")
+
+    try:
+        paths = input[:-1]
     except ValueError:
         print("Check if path is valid.")
 
     # skip frames using step size
     # if step_size = 0 than fps*multiplier
     try:
-        STEP_SIZE = int(sys.argv[2])
-    except ValueError:
+        step_size = int(input[len(input)-1:][0])
+    except (ValueError, TypeError):
         print("Step size must be int value!")
-
+    
     if os.path.isdir('dataset') == True:
         shutil.rmtree('dataset')
 
     if os.path.isdir('dataset') == False:
         os.mkdir('dataset')
 
-    cap = cv2.VideoCapture(PATH)
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    multiplier = 2
-    count = 0
-    image_num = 0
-
-    if STEP_SIZE == 0:
-        STEP_SIZE = int(fps*multiplier)
-
     os.chdir('dataset')
 
-    while True:
+    for path in paths:
+        cap = cv2.VideoCapture(path)
+        fps = cap.get(cv2.CAP_PROP_FPS)
+        multiplier = 2
+        
+        if step_size == 0:
+            step_size = int(fps*multiplier)
 
-        ret, frame = cap.read()
+        while True:
 
-        if cap.isOpened() == False:
-            print("Check if path is valid.")
+            ret, frame = cap.read()
 
-        if not ret:
-            break
+            if cap.isOpened() == False:
+                print("Check if path is valid.")
 
-        if count % STEP_SIZE == 0:
-            cv2.imwrite('image_{0}.png'.format(image_num), frame)
-            print('image_{0}.png'.format(image_num))
-            image_num += 1
-        count += 1
+            if not ret:
+                break
 
-        if cv2.waitKey(1) == ord('q'):
-            break
+            if count % step_size == 0:
+                cv2.imwrite('image_{0}.png'.format(image_num), frame)
+                print('image_{0}.png'.format(image_num))
+                image_num += 1
+            count += 1
 
-    cap.release()
+            if cv2.waitKey(1) == ord('q'):
+                break
+        cap.release()
 
-except IndexError:
+except (IndexError, NameError):
     print("Missing path or step size.")
