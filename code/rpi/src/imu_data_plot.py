@@ -1,10 +1,12 @@
 """IMU data playback with raw data plot and pose estimation 3d plot. (LSM9DS1 IMU)"""
+
+"""CSV file column format:
+'temp', 'acc_x', 'acc_y', 'acc_z', 'gyro_x', 'gyro_y', 'gyro_z', 'mag_x', 'mag_y', 'mag_z', 'time'"""
+
 import pandas as pd
-import time
 import seaborn
 import matplotlib.pyplot as plt
 import sys
-
 
 class PoseEstimationIMU():
     def __init__(self):
