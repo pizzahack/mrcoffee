@@ -24,8 +24,12 @@ class PoseEstimationIMU():
         self.data = pd.DataFrame(columns=['temp', 'acc_x', 'acc_y', 'acc_z',
                                           'gyro_x', 'gyro_y', 'gyro_z', 'mag_x',
                                           'mag_y', 'mag_z', 'time'])
-        self.fig, self.axs = plt.subplots(
-            ncols=2, nrows=2, figsize=(7, 7), subplot_kw=dict(projection='3d'))
+        # 2d projection                               
+        self.fig, self.axs = plt.subplots(ncols=2, nrows=2, figsize=(7, 7))
+        
+        # 3d projection
+        # self.fig, self.axs = plt.subplots(
+        #     ncols=2, nrows=2, figsize=(7, 7), subplot_kw=dict(projection='3d'))
 
     def input_data(self):
         try:
