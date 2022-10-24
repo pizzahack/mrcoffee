@@ -74,10 +74,12 @@ class PoseEstimationIMU():
         # end-effector pose estimation results
         self.axs[0, 1].set_xlim([0, 500])
         self.axs[0, 1].set_ylim([500, 0])
-        self.axs[0, 1].set_zlim([0, 500])
+        # self.axs[0, 1].set_zlim([0, 500])
 
         # initial point (x, y, z) (265, 15, 375) plot (x, y, z) => robot (z, x, y)
         self.axs[0, 1].scatter(265, 375, 15)
+        # base location
+        self.axs[0, 1].scatter(250 , 250, 470)
 
     def save_video(slef, anim):
         writer = animation.FFMpegWriter(fps=10)
