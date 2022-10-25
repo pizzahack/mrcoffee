@@ -28,6 +28,8 @@ class PoseEstimationIMU():
         # 3d projection
         self.fig, self.axs = plt.subplots(
             ncols=2, nrows=2, figsize=(7, 7), subplot_kw=dict(projection='3d'))
+        self.fig.suptitle(
+            'End-effector pose estimation from IMU data. \n (90 degree CW turn) ', fontsize=12)
 
     def input_data(self):
         try:
@@ -52,7 +54,7 @@ class PoseEstimationIMU():
             sys.exit(1)
 
     def plot_acc(self):
-        ax=self.axs[0, 0]
+        ax = self.axs[0, 0]
         seaborn.lineplot(ax=self.axs[0, 0], data=self.data[[
                          'acc_x', 'acc_y', 'acc_z']]).set_title("Accelerometer")
 
@@ -68,7 +70,7 @@ class PoseEstimationIMU():
 
     def plot_end_effector_pose(self):
         # end-effector pose estimation results
-        self.axs[0, 1].set_title("end-effector pose estimation")
+        self.axs[0, 1].set_title("end-effector")
         self.axs[0, 1].set_xlim([0, 500])
         self.axs[0, 1].set_ylim([500, 0])
         self.axs[0, 1].set_zlim([0, 500])
