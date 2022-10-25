@@ -11,7 +11,6 @@ import time
 import matplotlib.animation as animation
 import numpy as np
 
-
 class PoseEstimationIMU():
     def __init__(self):
         self.csv_file = ''
@@ -20,18 +19,15 @@ class PoseEstimationIMU():
         self.input_data()
         self.csv_to_pandas()
         self.index = 0
-        self.acc = np.asarray([[0, 0, 0]])
-        self.gyro = np.asarray([[0, 0, 0]])
-        self.mag = np.asarray([[0, 0, 0]])
         self.data = pd.DataFrame(columns=['temp', 'acc_x', 'acc_y', 'acc_z',
                                           'gyro_x', 'gyro_y', 'gyro_z', 'mag_x',
                                           'mag_y', 'mag_z', 'time'])
-        # 2d projection                               
-        self.fig, self.axs = plt.subplots(ncols=2, nrows=2, figsize=(7, 7))
-        
+        # 2d projection
+        # self.fig, self.axs = plt.subplots(ncols=2, nrows=2, figsize=(7, 7))
+
         # 3d projection
-        # self.fig, self.axs = plt.subplots(
-        #     ncols=2, nrows=2, figsize=(7, 7), subplot_kw=dict(projection='3d'))
+        self.fig, self.axs = plt.subplots(
+            ncols=2, nrows=2, figsize=(7, 7), subplot_kw=dict(projection='3d'))
 
     def input_data(self):
         try:
@@ -56,39 +52,39 @@ class PoseEstimationIMU():
             sys.exit(1)
 
     def plot_acc(self):
-        seaborn.lineplot(ax=self.axs[0, 0], data=self.acc[1:, 0]).set_title("Accelerometer")
-        seaborn.lineplot(ax=self.axs[0, 0], data=self.acc[1:, 1])
-        seaborn.lineplot(ax=self.axs[0, 0], data=self.acc[1:, 2])
+        ax=self.axs[0, 0]
+        seaborn.lineplot(ax=self.axs[0, 0], data=self.data[[
+                         'acc_x', 'acc_y', 'acc_z']]).set_title("Accelerometer")
 
     def plot_gyro(self):
-        seaborn.lineplot(ax=self.axs[1, 0], data=self.gyro[1:, 0]).set_title("Gyroscope")
-        seaborn.lineplot(ax=self.axs[1, 0], data=self.gyro[1:, 1])
-        seaborn.lineplot(ax=self.axs[1, 0], data=self.gyro[1:, 2])
+        seaborn.lineplot(ax=self.axs[1, 0], data=self.data[[
+                         'gyro_x', 'gyro_y', 'gyro_z']]).set_title("Gyroscope")
 
     def plot_mag(self):
-        seaborn.lineplot(ax=self.axs[1, 1], data=self.mag[1:, 0]).set_title("Magnetometer")
-        seaborn.lineplot(ax=self.axs[1, 1], data=self.mag[1:, 1])
-        seaborn.lineplot(ax=self.axs[1, 1], data=self.mag[1:, 2])
+        seaborn.lineplot(ax=self.axs[1, 1], data=self.data[[
+                         'mag_x', 'mag_y', 'mag_z']]).set_title("Magnetometer")
 
     '''TODO'''
 
     def plot_end_effector_pose(self):
         # end-effector pose estimation results
+        self.axs[0, 1].set_title("end-effector pose estimation")
         self.axs[0, 1].set_xlim([0, 500])
         self.axs[0, 1].set_ylim([500, 0])
-        # self.axs[0, 1].set_zlim([0, 500])
+        self.axs[0, 1].set_zlim([0, 500])
 
         # initial point (x, y, z) (265, 15, 375) plot (x, y, z) => robot (z, x, y)
-        self.axs[0, 1].scatter(265, 375, 30, color='b')
+        self.axs[0, 1].scatter(265, 375, 15, color='b')
+
         # base location
-        self.axs[0, 1].scatter(250 , 250, 470)
+        # self.axs[0, 1].scatter(250, 250, 470)
 
     def save_video(slef, anim):
         writer = animation.FFMpegWriter(fps=10)
         anim.save('imu_pose_estimation.mp4', writer=writer)
 
     def update(self, index):
-        data = next(self.genarator(index))
+        g = next(self.genarator(index))
 
         # clear prev plots
         self.axs[0, 0].clear()
@@ -97,12 +93,12 @@ class PoseEstimationIMU():
         self.axs[1, 1].clear()
 
         # update data
-        self.acc = np.append(
-            self.acc, [[data.acc_x, data.acc_y, data.acc_z]], axis=0)
-        self.gyro = np.append(
-            self.gyro, [[data.gyro_x, data.gyro_y, data.gyro_z]], axis=0)
-        self.mag = np.append(
-            self.mag, [[data.mag_x, data.mag_y, data.mag_z]], axis=0)
+        new_row = {'temp': g.temp, 'acc_x': g.acc_x, 'acc_y': g.acc_y, 'acc_z': g.acc_z,
+                   'gyro_x': g.gyro_x, 'gyro_y': g.gyro_y, 'gyro_z': g.gyro_z,
+                   'mag_x': g.mag_x, 'mag_y': g.mag_y, 'mag_z': g.mag_z,
+                   'time': g.time}
+
+        self.data = self.data.append(new_row, ignore_index=True)
 
         # create new plots
         self.plot_acc()
