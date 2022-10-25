@@ -10,6 +10,8 @@ import sys
 import time
 import matplotlib.animation as animation
 import numpy as np
+
+
 class PoseEstimationIMU():
     def __init__(self):
         self.csv_file = ''
@@ -54,17 +56,17 @@ class PoseEstimationIMU():
             sys.exit(1)
 
     def plot_acc(self):
-        seaborn.lineplot(ax=self.axs[0, 0], data=self.acc[1:, 0])
+        seaborn.lineplot(ax=self.axs[0, 0], data=self.acc[1:, 0]).set_title("Accelerometer")
         seaborn.lineplot(ax=self.axs[0, 0], data=self.acc[1:, 1])
         seaborn.lineplot(ax=self.axs[0, 0], data=self.acc[1:, 2])
 
     def plot_gyro(self):
-        seaborn.lineplot(ax=self.axs[1, 0], data=self.gyro[1:, 0])
+        seaborn.lineplot(ax=self.axs[1, 0], data=self.gyro[1:, 0]).set_title("Gyroscope")
         seaborn.lineplot(ax=self.axs[1, 0], data=self.gyro[1:, 1])
         seaborn.lineplot(ax=self.axs[1, 0], data=self.gyro[1:, 2])
 
     def plot_mag(self):
-        seaborn.lineplot(ax=self.axs[1, 1], data=self.mag[1:, 0])
+        seaborn.lineplot(ax=self.axs[1, 1], data=self.mag[1:, 0]).set_title("Magnetometer")
         seaborn.lineplot(ax=self.axs[1, 1], data=self.mag[1:, 1])
         seaborn.lineplot(ax=self.axs[1, 1], data=self.mag[1:, 2])
 
@@ -77,7 +79,7 @@ class PoseEstimationIMU():
         # self.axs[0, 1].set_zlim([0, 500])
 
         # initial point (x, y, z) (265, 15, 375) plot (x, y, z) => robot (z, x, y)
-        self.axs[0, 1].scatter(265, 375, 15)
+        self.axs[0, 1].scatter(265, 375, 30, color='b')
         # base location
         self.axs[0, 1].scatter(250 , 250, 470)
 
