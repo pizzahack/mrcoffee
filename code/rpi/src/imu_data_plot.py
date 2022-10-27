@@ -19,6 +19,13 @@ class PoseEstimationIMU():
         self.input_data()
         self.csv_to_pandas()
         self.index = 0
+        
+        # gyro calibration -> mean 25 observations 
+        self.acc_calibration = {'acc_x': 0, 'acc_y': 0, 'acc_z': 0}
+        self.gyro_calibration = {'gyro_x': 67.56,
+                                 'gyro_y': -131.56, 'gyro_z': 144.96}
+        self.mag_calibration = {'mag_x': 0, 'mag_y': 0, 'mag_z': 0}
+
         self.data = pd.DataFrame(columns=['temp', 'acc_x', 'acc_y', 'acc_z',
                                           'gyro_x', 'gyro_y', 'gyro_z', 'mag_x',
                                           'mag_y', 'mag_z', 'time'])
@@ -95,8 +102,11 @@ class PoseEstimationIMU():
         self.axs[1, 1].clear()
 
         # update data
-        new_row = {'temp': g.temp, 'acc_x': g.acc_x, 'acc_y': g.acc_y, 'acc_z': g.acc_z,
-                   'gyro_x': g.gyro_x, 'gyro_y': g.gyro_y, 'gyro_z': g.gyro_z,
+        new_row = {'temp': g.temp,
+                   'acc_x': g.acc_x, 'acc_y': g.acc_y, 'acc_z': g.acc_z,
+                   'gyro_x': g.gyro_x + self.gyro_calibration['gyro_x'],
+                   'gyro_y': g.gyro_y + self.gyro_calibration['gyro_y'],
+                   'gyro_z': g.gyro_z + self.gyro_calibration['gyro_z'],
                    'mag_x': g.mag_x, 'mag_y': g.mag_y, 'mag_z': g.mag_z,
                    'time': g.time}
 
