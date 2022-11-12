@@ -46,6 +46,7 @@ class PoseEstimationIMU():
                     self.output = True
         except (IndexError, TypeError):
             print("Check csv file path.")
+            sys.exit(1)
 
     def csv_to_pandas(self):
         try:
