@@ -10,6 +10,7 @@
 * [Build thread on Twitter](#build-thread-on-twitter)
 * [Technologies](#technologies)
 * [Hardware](#hardware)
+* [Build Log](#build-log)
 
 ## General info
 
@@ -26,3 +27,5 @@ MR. COFFEE will be a internet connected chess-playing robot. It'll allow users t
 ## Technologies
 
 ## Hardware
+
+## Build Log
